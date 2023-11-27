@@ -64,7 +64,13 @@ def get_estimator():
         ]
     )
 
-    pipe = make_pipeline(date_encoder, categorical_encoder, preprocessor)
+    scaler = ColumnTransformer(
+        [
+            ("scaler", StandardScaler(), date_cols + categorical_cols),
+        ]
+    )
+
+    pipe = make_pipeline(date_encoder, categorical_encoder, preprocessor, scaler)
 
     return pipe
 
@@ -77,14 +83,14 @@ print(X_train[:2, :])
 
 input_size = 8
 output_size = 1
-dense1_output = 16
-dense2_output = 32
-dense3_output = 16
-dense4_output = 8
+dense1_output = 128
+dense2_output = 256
+dense3_output = 512
+dense4_output = 128
 
-dropratio = 0
+dropratio = 0.
 alpha = 0.0001 # learning rate
-batch = 80
+batch = 300
 ep = 20 # epoch
 
 X_train, y_train, X_test, y_test = (torch.tensor(X_train), torch.tensor(y_train),

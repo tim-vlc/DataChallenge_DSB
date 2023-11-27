@@ -43,7 +43,7 @@ class NN(nn.Module):
             running_loss = 0.0
             for i in range(0, len(X_train), batch):
                 batch_X = X_train[i:i+batch].clone().detach().float()
-                batch_y = y_train[i:i+batch].clone().detach().float()
+                batch_y = y_train[i:i+batch].clone().detach().float().view(-1, 1)
                 
                 optimizer.zero_grad()
                 outputs = model(batch_X)
@@ -63,7 +63,7 @@ class NN(nn.Module):
             loss = 0
             for i in range(0, len(X_test), batch):
                 batch_X = X_test[i:i+batch].clone().detach().float()
-                batch_y = y_test[i:i+batch].clone()
+                batch_y = y_test[i:i+batch].clone().view(-1, 1)
                 outputs = (model(batch_X)).detach().cpu().numpy()
 
                 loss += torch.sqrt(criterion(outputs, batch_y))

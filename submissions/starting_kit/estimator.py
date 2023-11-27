@@ -63,6 +63,13 @@ def get_estimator():
 pipe = get_estimator()
 pipe.fit(X_train, y_train)
 
+print(
+    f"Train set, RMSE={mean_squared_error(y_train, pipe.predict(X_train), squared=False):.2f}"
+)
+print(
+    f"Test set, RMSE={mean_squared_error(y_test, pipe.predict(X_test), squared=False):.2f}"
+)
+
 y_pred = pipe.predict(X_final)
 
 results = pd.DataFrame(

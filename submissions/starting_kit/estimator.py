@@ -11,13 +11,7 @@ from sklearn.model_selection import TimeSeriesSplit, cross_val_score
 from pathlib import Path
 import os
 import numpy as np
-from kaggle.api.kaggle_api_extended import KaggleApi
-
-api = KaggleApi()
-api.authenticate()
-
-api.competition_download_file('mdsb-2023', 'final_test.parquet')
-api.dataset_download_file('timvlc/train-data-challenge-dsb', file_name='train.parquet')
+from xgboost import XGBRegressor
 
 def _read_data(path, f_name):
     _target_column_name = "log_bike_count"
@@ -29,8 +23,9 @@ def _read_data(path, f_name):
     X_df = data.drop([_target_column_name, "bike_count"], axis=1)
     return X_df, y_array
 
-X_final = pd.read_parquet(Path('final_test.parquet'))
+X_final = pd.read_parquet(Path('data/final_test.parquet'))
 X_train, y_train = _read_data(path='.', f_name='train.parquet')
+X_test, y_test = _read_data(path='.', f_name='test.parquet')
 
 def _encode_dates(X):
     X = X.copy()  # modify a copy of X
@@ -58,7 +53,8 @@ def get_estimator():
             ("cat", categorical_encoder, categorical_cols),
         ]
     )
-    regressor = Ridge()
+    #regressor = Ridge()
+    regressor = XGBRegressor(n_estimators=1000, max_depth=11, eta=0.1, subsample=0.9, colsample_bytree=0.6)
 
     pipe = make_pipeline(date_encoder, preprocessor, regressor)
 

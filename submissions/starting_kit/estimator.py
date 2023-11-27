@@ -23,9 +23,9 @@ def _read_data(path, f_name):
     X_df = data.drop([_target_column_name, "bike_count"], axis=1)
     return X_df, y_array
 
-X_final = pd.read_parquet(Path('data/final_test.parquet'))
-X_train, y_train = _read_data(path='.', f_name='train.parquet')
-X_test, y_test = _read_data(path='.', f_name='test.parquet')
+X_final = pd.read_parquet(Path('../../data/final_test.parquet'))
+X_train, y_train = _read_data(path='../../', f_name='train.parquet')
+X_test, y_test = _read_data(path='../../', f_name='test.parquet')
 
 def _encode_dates(X):
     X = X.copy()  # modify a copy of X

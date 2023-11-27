@@ -20,7 +20,7 @@ class NN(nn.Module):
         self.sigmoid4 = nn.Sigmoid()
         
         self.dense5 = nn.Linear(dense4_output, output_size)
-        self.sigmoid5 = nn.Sigmoid(dim=1)
+        self.sigmoid5 = nn.Sigmoid()
         
     def forward(self, x):
         x = self.dense1(x)
@@ -37,7 +37,7 @@ class NN(nn.Module):
         x = self.sigmoid5(x)
         return x
     
-    def train(model, X_train, y_train, ep, batch, optimizer, criterion):
+    def train_nn(model, X_train, y_train, ep, batch, optimizer, criterion):
         for epoch in range(ep):
             model.train()
             running_loss = 0.0
@@ -58,7 +58,7 @@ class NN(nn.Module):
             avg_loss = running_loss / (len(X_train) / batch)
             print(f'Epoch [{epoch+1}/{ep}], Loss: {avg_loss:.4f}')
     
-    def test(model, X_test, y_test, batch, criterion):
+    def test_nn(model, X_test, y_test, batch, criterion):
         with torch.no_grad():
             loss = 0
             for i in range(0, len(X_test), batch):

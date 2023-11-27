@@ -69,11 +69,11 @@ def get_estimator():
     return pipe
 
 pipe = get_estimator()
-X_train = pipe.predict(X_train)
-X_test = pipe.predict(X_test)
-X_final = pipe.predict(X_final)
+X_train = pipe.fit_transform(X_train)
+X_test = pipe.transform(X_test)
+X_final = pipe.transform(X_final)
 
-print(X_train.head())
+print(X_train[:2, :])
 
 input_size = 8
 output_size = 1
@@ -87,13 +87,13 @@ alpha = 0.0001 # learning rate
 batch = 80
 ep = 20 # epoch
 
-X_train, y_train, X_test, y_test = (torch.tensor(X_train.values), torch.tensor(y_train),
-                                    torch.tensor(X_test.values), torch.tensor(y_test))
+X_train, y_train, X_test, y_test = (torch.tensor(X_train), torch.tensor(y_train),
+                                    torch.tensor(X_test), torch.tensor(y_test))
 
 model = NN(input_size, output_size, dense1_output, dense2_output, dense3_output, dense4_output, dropratio)
 
 criterion = nn.MSELoss()
 optimizer = optim.Adam(model.parameters(), lr=alpha)
 
-model.train(X_train, y_train, ep, batch, optimizer, criterion)
-model.test(X_test, y_test, batch, criterion)
+model.train_nn(X_train, y_train, ep, batch, optimizer, criterion)
+model.test_nn(X_test, y_test, batch, criterion)

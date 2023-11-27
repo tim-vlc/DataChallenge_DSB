@@ -39,24 +39,30 @@ def _encode_dates(X):
     # Finally we can drop the original columns from the dataframe
     return X.drop(columns=["date"])
 
+def _encode_cat(X):
+    X = X.copy()  # modify a copy of X
+
+    # Finally we can drop the original columns from the dataframe
+    return X.drop(columns=["counter_id", "site_id", "counter_technical_id", "latitude", "longitude"])
+
 
 def get_estimator():
     date_encoder = FunctionTransformer(_encode_dates)
     date_cols = ["year", "month", "day", "weekday", "hour"]
 
-    categorical_encoder = OneHotEncoder(handle_unknown="ignore")
-    categorical_cols = ["counter_name", "site_name"]
+    categorical_encoder = FunctionTransformer(_encode_cat)
+    categorical_cols = ["counter_name", "site_name", "counter_installation_date"]
 
     preprocessor = ColumnTransformer(
         [
             ("date", OneHotEncoder(handle_unknown="ignore"), date_cols),
-            ("cat", categorical_encoder, categorical_cols),
+            ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_cols),
         ]
     )
     #regressor = Ridge()
-    regressor = XGBRegressor(n_estimators=1000, max_depth=11, eta=0.1, subsample=0.9, colsample_bytree=0.6)
+    regressor = XGBRegressor(n_estimators=200, max_depth=25, eta=0.1, subsample=0.9, colsample_bytree=0.6)
 
-    pipe = make_pipeline(date_encoder, preprocessor, regressor)
+    pipe = make_pipeline(date_encoder, categorical_encoder, preprocessor, regressor)
 
     return pipe
 

@@ -57,9 +57,6 @@ def _encode_all(data):
     data = date_encoder.fit_transform(data)
     data = categorical_encoder.fit_transform(data)
 
-    date_cols = ["year", "month", "day", "weekday", "hour"]
-    categorical_cols = ["counter_name", "site_name", "counter_installation_date"]
-
     encoder = OrdinalEncoder()
     scaler = StandardScaler()
 
@@ -76,19 +73,23 @@ X_test = X_test.reshape((X_test.shape[0], 1, X_test.shape[1]))
 X_final = X_final.reshape((X_final.shape[0], 1, X_final.shape[1]))
 print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)
 
-print(X_train[:2, :])
-
 # design network
 model = Sequential()
-model.add(LSTM(50, input_shape=(X_train.shape[1], X_train.shape[2]), return_sequences=True))
-model.add(LSTM(100, return_sequences=True))
-model.add(LSTM(50))
+model.add(LSTM(32, input_shape=(X_train.shape[1], X_train.shape[2]), return_sequences=True))
+model.add(LSTM(128, return_sequences=True))
+model.add(LSTM(128, return_sequences=True))
+model.add(LSTM(32))
 model.add(Dense(1))
 model.compile(loss='mae', optimizer='adam')
 # fit network
-history = model.fit(X_train, y_train, epochs=50, batch_size=72, validation_data=(X_test, y_test), verbose=2, shuffle=False)
+history = model.fit(X_train, y_train, epochs=5, batch_size=72, validation_data=(X_test, y_test), verbose=2, shuffle=False)
 # plot history
 plt.plot(history.history['loss'], label='train')
 plt.plot(history.history['val_loss'], label='test')
 plt.legend()
 plt.savefig('History.png')
+
+y_pred_test = model.predict(X_test)
+
+rmse = np.sqrt(mean_squared_error(y_pred_test, y_test))
+print('Test RMSE: %.3f' % rmse)

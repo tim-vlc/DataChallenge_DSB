@@ -76,6 +76,15 @@ print(
     f"Test set, RMSE={mean_squared_error(y_test, pipe.predict(X_test), squared=False):.2f}"
 )
 
+cv = TimeSeriesSplit(n_splits=6)
+
+# When using a scorer in scikit-learn it always needs to be better when smaller, hence the minus sign.
+scores = cross_val_score(
+    pipe, X_train, y_train, cv=cv, scoring="neg_root_mean_squared_error"
+)
+print("RMSE: ", scores)
+print(f"RMSE (all folds): {-scores.mean():.3} ± {(-scores).std():.3}")
+
 y_pred = pipe.predict(X_final)
 
 results = pd.DataFrame(

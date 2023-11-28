@@ -81,7 +81,8 @@ print(X_train[:2, :])
 # design network
 model = Sequential()
 model.add(LSTM(50, input_shape=(X_train.shape[1], X_train.shape[2]), return_sequences=True))
-model.add(LSTM(100))
+model.add(LSTM(100, return_sequences=True))
+model.add(LSTM(50))
 model.add(Dense(1))
 model.compile(loss='mae', optimizer='adam')
 # fit network

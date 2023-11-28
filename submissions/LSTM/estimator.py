@@ -76,10 +76,9 @@ print(X_train.shape, y_train.shape, X_test.shape, y_test.shape)
 # design network
 model = Sequential()
 model.add(LSTM(32, input_shape=(X_train.shape[1], X_train.shape[2]), return_sequences=True))
-model.add(LSTM(64, return_sequences=True))
-model.add(LSTM(20, return_sequences=True))
-model.add(LSTM(64, return_sequences=True))
-model.add(LSTM(10))
+model.add(LSTM(128, return_sequences=True))
+model.add(LSTM(128, return_sequences=True))
+model.add(LSTM(32))
 model.add(Dense(1))
 model.compile(loss='mse', optimizer='adam')
 # fit network

@@ -55,6 +55,7 @@ def _merge_external_data(X):
     df_ext = pd.read_csv(file_path, parse_dates=["date"])
 
     X = X.copy()
+    X["date"] = X["date"].astype("datetime64[ns]")
     # When using merge_asof left frame need to be sorted
     X["orig_index"] = np.arange(X.shape[0])
     X = pd.merge_asof(

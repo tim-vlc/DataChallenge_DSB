@@ -62,7 +62,7 @@ def get_estimator():
     )
     #regressor = Ridge()
     #regressor = XGBRegressor(n_estimators=200, max_depth=25, eta=0.1, subsample=0.9, colsample_bytree=0.6)
-    regressor = GradientBoostingRegressor(n_estimators=1000, max_depth=11)
+    regressor = GradientBoostingRegressor(max_depth=15, criterion='squared_error')
 
     pipe = make_pipeline(date_encoder, categorical_encoder, preprocessor, regressor)
 

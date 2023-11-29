@@ -7,6 +7,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import Ridge
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import TimeSeriesSplit, cross_val_score
+from sklearn.ensemble import GradientBoostingRegressor
 
 from pathlib import Path
 import os
@@ -60,7 +61,8 @@ def get_estimator():
         ]
     )
     #regressor = Ridge()
-    regressor = XGBRegressor(n_estimators=200, max_depth=25, eta=0.1, subsample=0.9, colsample_bytree=0.6)
+    #regressor = XGBRegressor(n_estimators=200, max_depth=25, eta=0.1, subsample=0.9, colsample_bytree=0.6)
+    regressor = GradientBoostingRegressor(n_estimators=1000, max_depth=11)
 
     pipe = make_pipeline(date_encoder, categorical_encoder, preprocessor, regressor)
 

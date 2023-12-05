@@ -12,6 +12,7 @@ from sklearn.ensemble import GradientBoostingRegressor
 from pathlib import Path
 import os
 import numpy as np
+from catboost import CatBoostRegressor
 from xgboost import XGBRegressor
 
 def _read_data(path, f_name):
@@ -27,6 +28,9 @@ def _read_data(path, f_name):
 X_final = pd.read_parquet(Path('../../data/final_test.parquet'))
 X_train, y_train = _read_data(path='../../', f_name='train.parquet')
 X_test, y_test = _read_data(path='../../', f_name='test.parquet')
+
+X_train = pd.concat([X_train, X_test], ignore_index=True, sort=False)
+y_train = np.concatenate((y_train, y_test), axis=0)
 
 def _encode_dates(X):
     X = X.copy()  # modify a copy of X
@@ -59,7 +63,12 @@ def get_estimator():
             ("cat", OneHotEncoder(handle_unknown="ignore"), categorical_cols),
         ]
     )
-    regressor = XGBRegressor()
+    #regressor = Ridge()
+    #regressor = XGBRegressor()
+    regressor = XGBRegressor(n_estimators=300,max_depth=9, learning_rate=0.3, 
+                             min_child_weight=0.2, gamma = 0.1, 
+                             subsample=0.9, colsample_bytree=0.6, 
+                             reg_alpha=3, reg_lambda=0.9999999999999999)
 
     pipe = make_pipeline(date_encoder, preprocessor, regressor)
 
@@ -70,9 +79,6 @@ pipe.fit(X_train, y_train)
 
 print(
     f"Train set, RMSE={mean_squared_error(y_train, pipe.predict(X_train), squared=False):.2f}"
-)
-print(
-    f"Test set, RMSE={mean_squared_error(y_test, pipe.predict(X_test), squared=False):.2f}"
 )
 
 cv = TimeSeriesSplit(n_splits=6)

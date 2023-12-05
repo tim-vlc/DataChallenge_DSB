@@ -28,7 +28,7 @@ def _merge_external_data(X):
     df_ext = pd.read_csv(file_path, parse_dates=["date"])
 
     X = X.copy()
-    # When using merge_asof left frame need to be sorted
+    # When using merge_asof left frame need to be sorted // Faire attention au time encoding
     X["orig_index"] = np.arange(X.shape[0])
     X = pd.merge_asof(
         X.sort_values("date"), df_ext[["date", "t"]].sort_values("date"), on="date"

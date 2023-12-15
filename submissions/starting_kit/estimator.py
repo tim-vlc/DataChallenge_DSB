@@ -46,7 +46,6 @@ def _encode_cat(X):
     # Finally we can drop the original columns from the dataframe
     return X.drop(columns=["counter_id", "site_id", "counter_technical_id", "latitude", "longitude"])
 
-
 def get_estimator():
     date_encoder = FunctionTransformer(_encode_dates)
     date_cols = ["year", "month", "day", "weekday", "hour"]

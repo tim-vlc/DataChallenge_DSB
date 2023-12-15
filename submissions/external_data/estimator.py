@@ -49,7 +49,6 @@ def _encode_cat(X):
     # Finally we can drop the original columns from the dataframe
     return X.drop(columns=["counter_id", "site_id", "counter_technical_id", "latitude", "longitude"])
 
-
 def _merge_external_data(X):
     file_path = Path(__file__).parent / "external_data.csv"
     df_ext = pd.read_csv(file_path, parse_dates=["date"])
@@ -90,7 +89,6 @@ def get_estimator():
     )
 
     return pipe
-
 
 pipe = get_estimator()
 pipe.fit(X_train, y_train)

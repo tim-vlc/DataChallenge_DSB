@@ -1,4 +1,5 @@
-# Git Description
+# MDSB 2023 - Kaggle Competition - Unicyle Lovers - #1 Rank 
+## Ghali Chraibi / Tim Valencony
 ![GH Actions](https://github.com/ramp-kits/bike_counters/actions/workflows/main.yml/badge.svg)
 
 ## The repository is splitted in 4 different folders:

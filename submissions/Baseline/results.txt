@@ -1,0 +1,15 @@
+The 5-CV score for ridgeregression is: 0.858 ± 0.0698
+The test score for ridgeregression is: 0.70
+ridgeregression executed in: 1.6640310287475586 seconds
+The 5-CV score for randomforestregressor is: 1.05 ± 0.0597
+The test score for randomforestregressor is: 0.97
+randomforestregressor executed in: 195.01936411857605 seconds
+The 5-CV score for lgbmregressor is: 0.756 ± 0.0582
+The test score for lgbmregressor is: 0.60
+lgbmregressor executed in: 16.21626305580139 seconds
+The 5-CV score for catboostregressor is: 0.762 ± 0.0841
+The test score for catboostregressor is: 0.47
+catboostregressor executed in: 50.779102087020874 seconds
+The 5-CV score for xgbregressor is: 0.739 ± 0.0621
+The test score for xgbregressor is: 0.49
+xgbregressor executed in: 4.085762977600098 seconds

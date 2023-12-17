@@ -262,10 +262,11 @@ y_pred = pipe.predict(X_final)
 final_pred = X_final.copy()
 final_pred['log_bike_count'] = y_pred
 
-sanity_dict = {
-               '28 boulevard Diderot E-O':(pd.to_datetime("2021-09-27"), pd.to_datetime("2021-10-10")),
-               '28 boulevard Diderot O-E':(pd.to_datetime("2021-09-27"), pd.to_datetime("2021-12-31"))
-               }
+# sanity_dict = {
+#                '28 boulevard Diderot E-O':(pd.to_datetime("2021-09-27"), pd.to_datetime("2021-10-10")),
+#                '28 boulevard Diderot O-E':(pd.to_datetime("2021-09-27"), pd.to_datetime("2021-12-31"))
+#                }
+sanity_dict = {}
 
 for i, (counter, dates) in enumerate(sanity_dict.items()):
     threshold_date, top_date = dates

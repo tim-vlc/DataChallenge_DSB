@@ -1,0 +1,4 @@
+The 5-CV score for fourier is: 0.637 ± 0.0356
+The test score for fourier is: 0.46
+The 5-CV score for none is: 0.71 ± 0.166
+The test score for none is: 0.43

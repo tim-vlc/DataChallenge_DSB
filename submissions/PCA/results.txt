@@ -1,0 +1,14 @@
+The 5-CV score for PCA=2 is: 0.657 ± 0.131
+The test score for PCA=2 is: 0.416
+The 5-CV score for PCA=3 is: 0.647 ± 0.147
+The test score for PCA=3 is: 0.411
+The 5-CV score for PCA=4 is: 0.65 ± 0.153
+The test score for PCA=4 is: 0.414
+The 5-CV score for PCA=5 is: 0.646 ± 0.145
+The test score for PCA=5 is: 0.411
+The 5-CV score for PCA=6 is: 0.641 ± 0.14
+The test score for PCA=6 is: 0.414
+The 5-CV score for PCA=7 is: 0.633 ± 0.13
+The test score for PCA=7 is: 0.418
+The 5-CV score for PCA=8 is: 0.64 ± 0.142
+The test score for PCA=8 is: 0.413

@@ -44,13 +44,6 @@ def _encode_dates(X):
     # Finally we can drop the original columns from the dataframe
     return X.drop(columns=["date"])
 
-def _encode_cat(X):
-    X = X.copy()  # modify a copy of X
-
-    # Finally we can drop the original columns from the dataframe
-    return X.drop(columns=["counter_id", "site_id", "counter_technical_id", "latitude", "longitude"])
-
-
 def get_estimator():
     date_encoder = FunctionTransformer(_encode_dates)
     date_cols = ["year", "month", "day", "weekday", "hour"]
@@ -64,11 +57,7 @@ def get_estimator():
         ]
     )
     #regressor = Ridge()
-    #regressor = XGBRegressor()
-    regressor = XGBRegressor(n_estimators=300,max_depth=9, learning_rate=0.3, 
-                             min_child_weight=0.2, gamma = 0.1, 
-                             subsample=0.9, colsample_bytree=0.6, 
-                             reg_alpha=3, reg_lambda=0.9999999999999999)
+    regressor = XGBRegressor()
 
     pipe = make_pipeline(date_encoder, preprocessor, regressor)
 

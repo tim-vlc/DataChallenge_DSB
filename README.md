@@ -5,6 +5,6 @@
  - Data: Containing all the datasets used for the final submissions and furher exploratory data analysis
  - EDA: Notebooks where exploration have been done + plot pictures 
  - Templates: Standards notebook to apply feature engineering + optuna
- - Submissions: py scripts pushed to Kaggle
+ - Submissions: py scripts pushed to Kaggle / each subfolder corresponds to a model used with further analysis
 
 

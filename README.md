@@ -1,4 +1,4 @@
-# MDSB 2023 - Kaggle Competition - Unicyle Lovers - #1 Rank 
+# MDSB 2023 - Kaggle Competition - Unicyle Lovers - 1st Place 
 ## Ghali Chraibi / Tim Valencony
 ![GH Actions](https://github.com/ramp-kits/bike_counters/actions/workflows/main.yml/badge.svg)
 
